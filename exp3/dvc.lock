@@ -1,0 +1,99 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare.py data/50_Startups.csv
+    deps:
+    - path: data/50_Startups.csv
+      hash: md5
+      md5: 42b7f80d7a8d5591be8c9aa7c0022917
+      size: 2386
+    - path: src/prepare.py
+      hash: md5
+      md5: 8214d0f8e1cc85a906fd4496c38e4e88
+      size: 1001
+    params:
+      params.yaml:
+        base:
+          project: startups
+          data_dir: data
+          file_path: 50_Startups.csv
+          cat_columns:
+          - State
+          num_columns:
+          - R&D Spend
+          - Administration
+          - Marketing Spend
+          target_column: Profit
+          model_dir: models
+          model_name: startups_model.pkl
+        prepare.seed: 20170428
+        prepare.split: 0.25
+    outs:
+    - path: data/prepared
+      hash: md5
+      md5: 5236cdfd2ab06965c76b5064958e127a.dir
+      size: 5462
+      nfiles: 4
+  train:
+    cmd: python src/train.py --config=params.yaml
+    deps:
+    - path: data/prepared/X_train.pkl
+      hash: md5
+      md5: a5c810135ef71d1f70029f2ca68324e0
+      size: 1905
+    - path: data/prepared/y_train.pkl
+      hash: md5
+      md5: c2e7fafe31ae72119d39803c5941fbac
+      size: 1498
+    - path: src/train.py
+      hash: md5
+      md5: a775c0d695cefdc5907d2e3cc09631b1
+      size: 1009
+    params:
+      params.yaml:
+        base:
+          project: startups
+          data_dir: data
+          file_path: 50_Startups.csv
+          cat_columns:
+          - State
+          num_columns:
+          - R&D Spend
+          - Administration
+          - Marketing Spend
+          target_column: Profit
+          model_dir: models
+          model_name: startups_model.pkl
+    outs:
+    - path: models/startups_model.pkl
+      hash: md5
+      md5: ccc8feb92c95a769326618bdc56c126d
+      size: 6388
+  evaluate:
+    cmd: python src/evaluate.py --config=params.yaml
+    deps:
+    - path: data/prepared/X_test.pkl
+      hash: md5
+      md5: 6a0cc0fa16e0969e7e9751375c4fef12
+      size: 1137
+    - path: data/prepared/y_test.pkl
+      hash: md5
+      md5: 97218d1e260190c59d5e43eb6d4c683b
+      size: 922
+    - path: model.pkl
+      hash: md5
+      md5: ccc8feb92c95a769326618bdc56c126d
+      size: 6388
+    - path: models/startups_model.pkl
+      hash: md5
+      md5: ccc8feb92c95a769326618bdc56c126d
+      size: 6388
+    - path: src/evaluate.py
+      hash: md5
+      md5: 192e29823ae7f09eec9cd3481888bde1
+      size: 1052
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: 8cc35cc5022cfd558a7e31b113d90eb2
+      size: 32
