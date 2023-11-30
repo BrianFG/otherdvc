@@ -1,0 +1,31 @@
+stages:
+  prepare:
+    cmd: python src/prepare.py data/50_Startups.csv
+    deps:
+    - data/50_Startups.csv
+    - src/prepare.py
+    params:
+    - prepare.seed
+    - prepare.split
+    outs:
+    - data/prepared
+  train:
+    cmd: python src/train.py data/prepared
+    deps:
+    - data/prepared
+    - src/train.py
+    outs:
+    - model.pkl
+  evaluate:
+    cmd: python src/evaluate.py model.pkl
+    deps:
+    - model.pkl
+    - data/prepared
+    - src/evaluate.py
+    metrics:
+    - evaluate
+metrics:
+- evaluate/metrics.json
+plots:
+- evaluate/plots/metrics:
+    x: step

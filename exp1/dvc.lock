@@ -1,0 +1,45 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare.py data/data.xml
+    deps:
+    - path: data/data.xml
+      hash: md5
+      md5: 3ec6f3f33fa6a1d84cfc79becbd68c45
+      size: 14455097
+    - path: src/prepare.py
+      hash: md5
+      md5: 18cdf29928ee9076f0418f735f8a99ae
+      size: 2329
+    params:
+      params.yaml:
+        prepare.seed: 20170428
+        prepare.split: 0.25
+    outs:
+    - path: data/prepared
+      hash: md5
+      md5: 9f9ff99946873b1a914ed298f3299545.dir
+      size: 8447363
+      nfiles: 2
+  featurize:
+    cmd: python src/featurization.py data/prepared/ data/features
+    deps:
+    - path: data/prepared
+      hash: md5
+      md5: 9f9ff99946873b1a914ed298f3299545.dir
+      size: 8447363
+      nfiles: 2
+    - path: src/featurization.py
+      hash: md5
+      md5: 0b39b0b9674f4acfc6f86893328ca04a
+      size: 4294
+    params:
+      params.yaml:
+        featurize.max_features: 1600
+        featurize.ngrams: 1
+    outs:
+    - path: data/features
+      hash: md5
+      md5: 118f8a17a4da5fc7f11d74ed10c62794.dir
+      size: 4135028
+      nfiles: 2
