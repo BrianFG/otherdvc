@@ -74,16 +74,16 @@ stages:
     deps:
     - path: data/prepared/X_test.pkl
       hash: md5
-      md5: 0c31ebf76a2a5f4b63fad6e3bb65457e
-      size: 1201
+      md5: 31cecc141a9dfe2be699703cc5b093c3
+      size: 1041
     - path: data/prepared/y_test.pkl
       hash: md5
-      md5: 625b98f83a4d10c169338eb897b02288
-      size: 970
+      md5: 60e6f9e415a4939e37c5b41feb9e4024
+      size: 850
     - path: models/startups_model2.pkl
       hash: md5
-      md5: 9dcb6dd6b6e2e6b1714cecd1903b1cb9
-      size: 6100
+      md5: 390ec1a32741ff9a1e676dcdb86e2117
+      size: 6820
     - path: src/evaluate.py
       hash: md5
       md5: fe6bcafc7eeb1687e2c6f3c027bd954a
@@ -91,9 +91,9 @@ stages:
     outs:
     - path: eval_plots/plot.png
       hash: md5
-      md5: 4b9f36188b80e208037a889bb21ab691
-      size: 25252
+      md5: 2f518661124fc71d157d725674c6e01c
+      size: 22786
     - path: metrics.json
       hash: md5
-      md5: f1f14a6c7ab5bad47cf988109b43741b
+      md5: 37ed27b7108b823e3c459a5c5b248f3f
       size: 32
