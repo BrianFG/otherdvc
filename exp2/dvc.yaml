@@ -16,16 +16,44 @@ stages:
     - src/train.py
     outs:
     - model.pkl
+  train2:
+    cmd: python src/train2.py data/prepared
+    deps:
+    - data/prepared
+    - src/train2.py
+    outs:
+    - model2.pkl
   evaluate:
-    cmd: python src/evaluate.py model.pkl
+    cmd: python src/evaluate.py model.pkl evaluate
     deps:
     - model.pkl
     - data/prepared
     - src/evaluate.py
     metrics:
     - evaluate
+  evaluate2:
+    cmd: python src/evaluate.py model2.pkl evaluate2
+    deps:
+    - model2.pkl
+    - data/prepared
+    - src/evaluate.py
+    metrics:
+    - evaluate2
 metrics:
 - evaluate/metrics.json
+- evaluate2/metrics.json
 plots:
 - evaluate/plots/metrics:
     x: step
+- evaluate2/plots/metrics:
+    x: step
+artifacts:
+  model:
+    path: model.pkl
+    type: model
+  model2:
+    path: model2.pkl
+    type: model
+  modela:
+    path: model2.pkl
+    type: model
