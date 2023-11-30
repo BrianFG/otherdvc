@@ -24,12 +24,13 @@ def main():
     with open(model_file, "rb") as f:
         model = pickle.load(f)
 
-    with Live("evaluate", save_dvc_exp=True) as live:
+    with Live(sys.argv[2], save_dvc_exp=True) as live:
         accuracy = model.score(X, y)
         print("Accuracy:", accuracy)
         #json.dump({"accuracy": accuracy}, open("metrics.json", "w"))
         live.log_metric("accuracy", accuracy)
         live.log_metric("accuracy2", accuracy * 2)
+        live.log_artifact(model_file, type="model")
         live.make_summary()
 
 if __name__ == "__main__":
