@@ -1,0 +1,11 @@
+stages:
+  prepare:
+    cmd: python src/prepare.py data/50_Startups.csv
+    deps:
+    - data/50_Startups.csv
+    - src/prepare.py
+    params:
+    - prepare.seed
+    - prepare.split
+    outs:
+    - data/prepared

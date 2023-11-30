@@ -1,0 +1,23 @@
+base:
+  project: startups 
+  data_dir: data
+  file_path: 50_Startups.csv
+  cat_columns: 
+    - State
+  num_columns: 
+    - R&D Spend
+    - Administration
+    - Marketing Spend
+  target_column: Profit
+  model_dir: models
+  model_name: startups_model
+
+prepare:
+  split: 0.25
+  seed: 20170428
+
+train:
+  model_type: RandomForestRegressor
+  seed: 20170428
+  n_est: 50
+  min_split: 0.01
