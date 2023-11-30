@@ -5,7 +5,27 @@ stages:
     - data/50_Startups.csv
     - src/prepare.py
     params:
+    - base
     - prepare.seed
     - prepare.split
     outs:
     - data/prepared
+  train:
+    cmd: python src/train.py --config=params.yaml
+    params:
+    - base
+    deps:
+    - data/prepared/X_train.pkl
+    - data/prepared/y_train.pkl
+    - src/train.py
+    outs:
+    - ${base.model_dir}/${base.model_name}
+  evaluate:
+    cmd: python src/evaluate.py --config=params.yaml
+    deps:
+    - data/prepared/X_test.pkl
+    - data/prepared/y_test.pkl
+    - ${base.model_dir}/${base.model_name}
+    - src/evaluate.py
+    metrics:
+    - metrics.json

@@ -10,10 +10,10 @@ base:
     - Marketing Spend
   target_column: Profit
   model_dir: models
-  model_name: startups_model
+  model_name: startups_model2.pkl
 
 prepare:
-  split: 0.25
+  split: 0.30
   seed: 20170428
 
 train:
