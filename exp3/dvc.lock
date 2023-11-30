@@ -27,11 +27,11 @@ stages:
           model_dir: models
           model_name: startups_model2.pkl
         prepare.seed: 20170428
-        prepare.split: 0.3
+        prepare.split: 0.2
     outs:
     - path: data/prepared
       hash: md5
-      md5: dbd36431f80401b000aa35a814ac6d1c.dir
+      md5: 20257f3b07833a8fd67c71ebcf566357.dir
       size: 5462
       nfiles: 4
   train:
@@ -39,12 +39,12 @@ stages:
     deps:
     - path: data/prepared/X_train.pkl
       hash: md5
-      md5: c49b12c1c14ce21cbfd2ef4882ce62c7
-      size: 1841
+      md5: 1f6e022c83e562312477b407c594ae7b
+      size: 2001
     - path: data/prepared/y_train.pkl
       hash: md5
-      md5: 42f9a4911ba30d4e4814c93c86d647c2
-      size: 1450
+      md5: 29153521356907d5081bb2ca5b2a4105
+      size: 1570
     - path: src/train.py
       hash: md5
       md5: a775c0d695cefdc5907d2e3cc09631b1
@@ -67,8 +67,8 @@ stages:
     outs:
     - path: models/startups_model2.pkl
       hash: md5
-      md5: 9dcb6dd6b6e2e6b1714cecd1903b1cb9
-      size: 6100
+      md5: 390ec1a32741ff9a1e676dcdb86e2117
+      size: 6820
   evaluate:
     cmd: python src/evaluate.py --config=params.yaml
     deps:
