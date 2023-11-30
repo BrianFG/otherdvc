@@ -27,11 +27,11 @@ stages:
           model_dir: models
           model_name: startups_model2.pkl
         prepare.seed: 20170428
-        prepare.split: 0.2
+        prepare.split: 0.25
     outs:
     - path: data/prepared
       hash: md5
-      md5: 20257f3b07833a8fd67c71ebcf566357.dir
+      md5: 5236cdfd2ab06965c76b5064958e127a.dir
       size: 5462
       nfiles: 4
   train:
@@ -39,12 +39,12 @@ stages:
     deps:
     - path: data/prepared/X_train.pkl
       hash: md5
-      md5: 1f6e022c83e562312477b407c594ae7b
-      size: 2001
+      md5: a5c810135ef71d1f70029f2ca68324e0
+      size: 1905
     - path: data/prepared/y_train.pkl
       hash: md5
-      md5: 29153521356907d5081bb2ca5b2a4105
-      size: 1570
+      md5: c2e7fafe31ae72119d39803c5941fbac
+      size: 1498
     - path: src/train.py
       hash: md5
       md5: a775c0d695cefdc5907d2e3cc09631b1
@@ -67,23 +67,23 @@ stages:
     outs:
     - path: models/startups_model2.pkl
       hash: md5
-      md5: 390ec1a32741ff9a1e676dcdb86e2117
-      size: 6820
+      md5: ccc8feb92c95a769326618bdc56c126d
+      size: 6388
   evaluate:
     cmd: python src/evaluate.py --config=params.yaml
     deps:
     - path: data/prepared/X_test.pkl
       hash: md5
-      md5: 0c31ebf76a2a5f4b63fad6e3bb65457e
-      size: 1201
+      md5: 6a0cc0fa16e0969e7e9751375c4fef12
+      size: 1137
     - path: data/prepared/y_test.pkl
       hash: md5
-      md5: 625b98f83a4d10c169338eb897b02288
-      size: 970
+      md5: 97218d1e260190c59d5e43eb6d4c683b
+      size: 922
     - path: models/startups_model2.pkl
       hash: md5
-      md5: 9dcb6dd6b6e2e6b1714cecd1903b1cb9
-      size: 6100
+      md5: ccc8feb92c95a769326618bdc56c126d
+      size: 6388
     - path: src/evaluate.py
       hash: md5
       md5: fe6bcafc7eeb1687e2c6f3c027bd954a
@@ -91,9 +91,9 @@ stages:
     outs:
     - path: eval_plots/plot.png
       hash: md5
-      md5: 4b9f36188b80e208037a889bb21ab691
-      size: 25252
+      md5: f44810206e9bba7690f5e272cb604420
+      size: 24440
     - path: metrics.json
       hash: md5
-      md5: f1f14a6c7ab5bad47cf988109b43741b
+      md5: 8cc35cc5022cfd558a7e31b113d90eb2
       size: 32
