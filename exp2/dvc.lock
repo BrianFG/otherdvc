@@ -1,0 +1,56 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare.py data/50_Startups.csv
+    deps:
+    - path: data/50_Startups.csv
+      hash: md5
+      md5: 42b7f80d7a8d5591be8c9aa7c0022917
+      size: 2386
+    - path: src/prepare.py
+      hash: md5
+      md5: 6ef36e74c0cf42accd6e29a352203345
+      size: 1041
+    params:
+      params.yaml:
+        prepare.seed: 20170428
+        prepare.split: 0.25
+    outs:
+    - path: data/prepared
+      hash: md5
+      md5: 70e11d3e02a318bbd03c652478df3436.dir
+      size: 2075
+      nfiles: 4
+  train:
+    cmd: python src/train.py data/prepared
+    deps:
+    - path: data/prepared
+      hash: md5
+      md5: 70e11d3e02a318bbd03c652478df3436.dir
+      size: 2075
+      nfiles: 4
+    - path: src/train.py
+      hash: md5
+      md5: ac66b3fa7f666d267d7f984271841775
+      size: 531
+    outs:
+    - path: model.pkl
+      hash: md5
+      md5: ccc8feb92c95a769326618bdc56c126d
+      size: 6388
+  evaluate:
+    cmd: python src/evaluate.py model.pkl
+    deps:
+    - path: data/prepared
+      hash: md5
+      md5: 70e11d3e02a318bbd03c652478df3436.dir
+      size: 2075
+      nfiles: 4
+    - path: model.pkl
+      hash: md5
+      md5: ccc8feb92c95a769326618bdc56c126d
+      size: 6388
+    - path: src/evaluate.py
+      hash: md5
+      md5: 0f0298552f483a37df33d3260a59238e
+      size: 583
